@@ -1,2 +1,2 @@
 # IM3-Semesterprojekt
-Sememsterprojekt IM3, Marcie, Noah, Mo
+Sememsterprojekt IM3, Marcie, Noah, Mo, Nyah
