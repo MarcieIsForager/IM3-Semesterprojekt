@@ -20,12 +20,13 @@
 $raw_death_data = include 'extract.php';
 $cleaned_up_death_data = $raw_death_data;
 
-echo('in file');
+//echo('in file');
 
 function add_canton_id()
 {
     echo('in add canton id');
    foreach ($cleaned_up_death_data as $cantonal_death_array) {
+       print_r($cantonal_death_array);
         foreach($cantonal_death_array as $row){
             switch($row['Kanton']){
                 case 'ZH':
