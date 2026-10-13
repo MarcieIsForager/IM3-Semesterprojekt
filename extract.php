@@ -35,5 +35,6 @@ foreach (new DirectoryIterator($root_data_path) as $file){
     $death_causes[] = $temp_death_causes;
     fclose($handle);
 }
+print_r($death_causes);
 
 return $death_causes;
