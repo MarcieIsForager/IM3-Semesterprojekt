@@ -13,19 +13,32 @@ try {
 }
 
 $insert_death_data = $pdo->prepare(
-    'INSERT INTO death_causes (death_cause, total_death_toll, num_of_women, num_of_men, percentage_women, percentage_men, canton_id, death_cause_rating_id)
-     VALUES (:death_cause, :totat_death_toll, :num_of_women, :num_of_men, :percentage_women, :percentage_men, :canton_id, :death_cause_rating_id)'
+    'INSERT INTO death_causes (death_cause, total_death_toll, percentage_of_death_toll, canton_id, is_caused_by_stress)
+     VALUES (:death_cause, :totat_death_toll, :percentage_of_death_toll, :canton_id, :is_caused_by_stress)'
 );
 
-foreach ($rows as $row) {
+foreach ($result as $rows) {
+    foreach ($rows as $row) {
     $insert_death_data->execute([
         'death_cause'           => $row['Todesursache'],
-        'total_death_toll'              => $row['Total'],
-        'num_of_women'  => $row['Anzahl Frauen'],
-        'num_of_men'          => $row['Anzahl Männer'],
-        'percentage_women' => $row['Anteil Frauen'],
-        'percentage_men' => $row['Anteil Männer'],
+        'total_death_toll'              => $row['Total Tode'],
+        'percentage_of_death_toll'  => $row['Total prozent'],
         'canton_id' => $row['canton_id'],
-        'death_cause_rating_id' => $row['death_cause_rating_id']
-    ]);
+        'is_caused_by_stress' => $row['is_caused_by_stress']
+        ]);
+    }
 }
+
+
+
+
+
+$create_cantons_table = $pdo->prepare(
+    'CREATE cantons (
+    canton_id int PRIMARY KEY,
+    canton_name varchar(255) NOT NULL,
+    canton_population_divide varchar(255) NOT NULL,
+    )'
+);
+
+return 'success'; 
