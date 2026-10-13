@@ -17,13 +17,14 @@
  * Wichtig: Häufigkeit im Datensatz ist nicht dasselbe wie Risiko.
  */
 
-$raw_death_data = include __DIR__ . '/extract.php';
+$raw_death_data = include 'extract.php';
 $cleaned_up_death_data = $raw_death_data;
 
-
+echo('in file');
 
 function add_canton_id()
 {
+    echo('in add canton id');
    foreach ($cleaned_up_death_data as $cantonal_death_array) {
         foreach($cantonal_death_array as $row){
             switch($row['Kanton']){
@@ -62,6 +63,7 @@ function add_canton_id()
 // 4: Unrelated
 function add_death_cause_rating ()
 {
+    echo('in add death cause rating');
     foreach ($cleaned_up_death_data as $cantonal_death_array) {
         foreach($cantonal_death_array as $row){
             switch($row['Todesursache']){
@@ -85,22 +87,6 @@ function add_death_cause_rating ()
 add_canton_id();
 add_death_cause_rating();
 
+print_r($cleaned_up_death_data);
 return $cleaned_up_death_data;
-
-
-// TODO 1: Filtere Zeitraum und Vorfalltyp.
-// TODO 2: Normalisiere Art, Aktivität und Land – Fatal wird für diese Fragen
-+
-//         nicht gebraucht.
-// TODO 3: Zähle Arten und Aktivitäten getrennt.
-// TODO 4: Sortiere beide Rankings und behalte je die Top 10.
-// TODO 5: Erzeuge gleich aufgebaute Ergebniszeilen nach Datenvertrag:
-//         dimension, rank, category, incidents.
-// TODO 6: Ergänze Abdeckungswerte und unbekannte Rohwerte im Audit.
-// TODO 7: Zähle pro Land zusätzlich mit, welche Art und welche Aktivität dort
-//         am häufigsten vorkommt. Achtung: Ein Vorfall ohne Land bleibt in den
-//         beiden Ranglisten – hier gehört kein Filter hin.
-// TODO 8: Erzeuge die Länderzeilen nach Datenvertrag:
-//         country, iso3, incidents, top_species, top_activity.
-//         Diese Liste wird nicht auf Top 10 gekürzt.
 

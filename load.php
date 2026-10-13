@@ -12,10 +12,16 @@ try {
     exit("Verbindung fehlgeschlagen: " . $e->getMessage() . "\n\n");
 }
 
+$delete_preexisting_data = $pdo->prepare(
+    'DELETE * FROM death_cause'
+);
+
 $insert_death_data = $pdo->prepare(
-    'INSERT INTO death_causes (death_cause, total_death_toll, percentage_of_death_toll, canton_id, is_caused_by_stress)
+    'INSERT INTO death_cause (death_cause, total_death_toll, percentage_of_death_toll, canton_id, is_caused_by_stress)
      VALUES (:death_cause, :totat_death_toll, :percentage_of_death_toll, :canton_id, :is_caused_by_stress)'
 );
+
+$delete_preexisting_data->execute();
 
 foreach ($result as $rows) {
     foreach ($rows as $row) {
@@ -28,17 +34,5 @@ foreach ($result as $rows) {
         ]);
     }
 }
-
-
-
-
-
-$create_cantons_table = $pdo->prepare(
-    'CREATE cantons (
-    canton_id int PRIMARY KEY,
-    canton_name varchar(255) NOT NULL,
-    canton_population_divide varchar(255) NOT NULL,
-    )'
-);
 
 return 'success'; 
