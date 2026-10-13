@@ -27,6 +27,7 @@ function add_canton_id()
     echo('in add canton id');
    foreach ($cleaned_up_death_data as $cantonal_death_array) {
        print_r($cantonal_death_array);
+       echo "\n";
         foreach($cantonal_death_array as $row){
             switch($row['Kanton']){
                 case 'ZH':
